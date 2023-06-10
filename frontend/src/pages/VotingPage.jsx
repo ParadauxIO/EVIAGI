@@ -40,7 +40,6 @@ export default function VotingPage() {
             newChoices[candidate.name] = 1;
         }
         setChoices(newChoices)
-        console.log(newChoices)
     }, [])
 
     return (
