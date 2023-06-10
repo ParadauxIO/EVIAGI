@@ -1,38 +1,32 @@
 import "./RankedChoiceSelector.scss"
 import { getPlacementSuffix } from "../../partials/stringHelper"
 import React from "react"
+import Selector from "./Selector"
 
 export default function RankedChoiceSelector({ className, candidates, choices, setChoices }) {
-    // TODO, defuckify? Idk it's not that bad and it works...
+    const options = ["", ...candidates.map((candidate, index) => ({
+        label: index+1 + getPlacementSuffix(index+1),
+        value: index+1
+    }))];
+
+    const updateChoices = (name) => {
+        return (value) => setChoices(oldChoices => ({ ...oldChoices, [name]: value }));
+    }
+
     return (
         <div className={"ranked-choice-selector " + className}>
             {
                 candidates.map((candidate, index) => (
-                    <React.Fragment key={index}>
-                        <label htmlFor={candidate.name}>
-                            {candidate.name}
-                        </label>
-                        <select 
-                            id={candidate.name}
-                            onChange={e => {
-                                setChoices(currentChoices => {
-                                    let newChoices = {...currentChoices}
-                                    newChoices[candidate.name] = parseInt(e.target.value, 10) || 1;;
-                                    return newChoices;
-                                })
-                            }} 
-                        >
-                            {
-                                candidates.map((x, index2) => (
-                                    <option key={index2}>{`${index2 + 1}${getPlacementSuffix(index2 + 1)}`}</option>
-                                ))
-                            }
-                        </select>
-                    </React.Fragment>
-
-
+                    <Selector
+                        key={index}
+                        label={candidate.name}
+                        options={options}
+                        value={choices[candidate.name]}
+                        setValue={updateChoices(candidate.name)}
+                    />
                 ))
             }
         </div>
     )
 }
+
