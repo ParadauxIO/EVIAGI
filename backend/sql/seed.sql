@@ -1,0 +1,1 @@
+-- Seed the database with sample ballots for testing purposes.

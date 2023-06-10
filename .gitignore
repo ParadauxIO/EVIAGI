@@ -1,3 +1,6 @@
+# Datagrip / Intellij
 *.iml
 .idea/
 
+# VSCode
+.vscode/
