@@ -15,7 +15,7 @@ CREATE TABLE eviagi_elections (
 );
 
 CREATE TABLE eviagi_candidates (
-    
+
 );
 
 CREATE TABLE eviagi_electorate (
