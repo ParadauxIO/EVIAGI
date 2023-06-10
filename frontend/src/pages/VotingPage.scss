@@ -1,0 +1,43 @@
+div.voting-page {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+
+    main {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+
+        .selector {}
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+
+            button {
+                outline: 0;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                border-radius: 4px;
+                font-size: 13px;
+                height: 30px;
+                background-color: #0000000d;
+                color: #0e0e10;
+                padding: 0 20px;
+            }
+
+            button:hover {
+                background-color: #00000028;
+            }
+        }
+
+
+    }
+}
+
+.selector {
+    // background-color: red;
+}
