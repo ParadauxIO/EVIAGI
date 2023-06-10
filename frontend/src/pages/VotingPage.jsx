@@ -11,8 +11,14 @@ export default function VotingPage() {
     let [choices, setChoices] = useState({});
 
     const vote = () => {
-        console.log("vote")
         // Validate inputs
+        if (hasDuplicatePreferences(choices)) {
+            console.log("no vote")
+            return;
+        }
+
+
+        console.log("vote")
     }
 
     const spoil = () => {
@@ -23,7 +29,6 @@ export default function VotingPage() {
         let newCandidates = [
             {
                 name: "Candidate 1",
-    
             },
             {
                 name: "Candidate 5"
@@ -36,10 +41,11 @@ export default function VotingPage() {
         setCandidates(newCandidates)
 
         let newChoices = {};
-        for (let candidate of candidates) {
-            newChoices[candidate.name] = 1;
+        for (let candidate of newCandidates) {
+            newChoices[candidate.name] = "";
         }
         setChoices(newChoices)
+        console.log(newChoices)
     }, [])
 
     return (
@@ -61,3 +67,15 @@ export default function VotingPage() {
         </div>
     )
 }
+
+const hasDuplicatePreferences = (choices) => {
+    // Get all the preference numbers, excluding empty string (no selection made for that candidate)
+    const preferences = Object.values(choices).filter(item => item !== "");
+
+    // Create a Set from the preference numbers
+    const preferenceSet = new Set(preferences);
+  
+    console.log(preferences, preferenceSet)
+    // If the Set size is equal to the number of preferences, there are no duplicates
+    return preferenceSet.size !== preferences.length;
+  }
