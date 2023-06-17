@@ -12,25 +12,45 @@ div.voting-page {
 
         .selector {}
 
-        .actions {
-            display: flex;
-            gap: 0.5rem;
+        .voting-card {
+            background-color: #f8f8f8;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 1.25rem;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-            button {
-                outline: 0;
-                border: none;
-                cursor: pointer;
-                font-weight: 600;
-                border-radius: 4px;
-                font-size: 13px;
-                height: 30px;
-                background-color: #0000000d;
-                color: #0e0e10;
-                padding: 0 20px;
+            h1 {
+                text-align: center;
+                font-size: 1.25rem;
             }
 
-            button:hover {
-                background-color: #00000028;
+            .actions {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+    
+                button {
+                    outline: 0;
+                    border: none;
+                    cursor: pointer;
+                    font-weight: 600;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    height: 30px;
+                    background-color: #0000000d;
+                    color: #0e0e10;
+                    padding: 0 20px;
+                }
+    
+                button:hover {
+                    background-color: #00000028;
+                }
+            }
+
+            p {
+                padding-top: 1rem;
+                text-align: center;
+                font-size: 0.75rem;
             }
         }
 

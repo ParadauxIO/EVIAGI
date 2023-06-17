@@ -1,0 +1,30 @@
+aside.sidebar.organisers-sidebar {
+    height: 100dvh;
+    .heading {
+        // background-color: blue;
+        padding-top: 4rem;
+        text-align: center;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            // background-color: red;
+            text-align: center;
+            padding-block: 1rem;
+        }
+
+        li:hover {
+            background-color: #00000011;
+            cursor: pointer;
+        }
+
+        li.active {
+            background-color: #d1d8da;
+            border-left: 4px solid #75878dd7;
+            outline: 10px ;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+api.eviagi.clove.ie
+(optional)
+
+-- Login flow will create an organiser profile via a trigger.
+
+-- Creates an election
+POST /election/create
+Auth: Bearer Token
+Body: opens, (closes), voting_method, name, description, (secret_ballot)
+(has_reopen_nominations) (uses_constituencies) (valid_constituencies)
+
+-- Updates an existing election
+UPDATE /election/:electionId
+Auth: Bearer Token
+Body: All election params, but they're optional.
+
+-- Deletes an election
+DELETE /election/:electionId
+Auth: Bearer Token
+
+-- Gets an election
+GET /election/:electionId
+Auth: Bearer Token 
+Auth: Presigned Url token in body 'token' object.
+
+-- Gets public election information, returns name and description
+GET /election/public/:electionId
+
+-- Generates a one-time-use, expiring voting link 
+POST /election/vote/signed/:token
+
+-- Allows logged in users to vote using their identity.
+POST /election/vote
+Auth: Bearer Token
+Body: election_id, choices
+
+--

@@ -12,6 +12,12 @@ import './styles/global.scss';
 import Index from './pages/Index';
 import ErrorPage from './pages/ErrorPage';
 import VotingPage from './pages/VotingPage';
+import OrganiserIndex from './pages/organisers/OrganiserIndex';
+import OrganiserElectionList from './pages/organisers/index/OrganiserElectionList';
+import OrganiserElectionEditor from './pages/organisers/index/OrganiserElectionEditor';
+import OrganiserAccountEditor from './pages/organisers/index/OrganiserAccountEditor';
+import OrganiserElectionViewer from './pages/organisers/index/OrganiserElectionViewer';
+import OrganiserLayout from './pages/organisers/OrganiserLayout';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +32,32 @@ const router = createBrowserRouter([
   {
     path: "/election/:electionId/vote/electorate/:electorId",
     element: <VotingPage/>
+  },
+  {
+    path: "/organisers",
+    element: <OrganiserLayout/>,
+    children: [
+      {
+        path: "",
+        element: <OrganiserIndex/>
+      },
+      {
+        path: "elections",
+        element: <OrganiserElectionList/>
+      },
+      {
+        path: "election/:electionId/edit",
+        element: <OrganiserElectionEditor/>
+      },
+      {
+        path: "election/:electionId",
+        element: <OrganiserElectionViewer/>
+      },
+      {
+        path: ":organiserId",
+        element: <OrganiserAccountEditor/>
+      },
+    ]
   }
 ]);
 

@@ -1,0 +1,38 @@
+main.main.index {
+    padding: 1rem;
+
+    .intro {
+        p {
+            padding-block: 0.25rem;
+        }
+    }
+
+    .statistics {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        gap: 0.75rem;
+        max-width: 500px;
+
+        .statistic {
+            display: flex;
+            flex-direction: column;
+
+            max-width: 240px;
+            padding: 1rem;
+
+            border: 1px solid #e6e6e6;
+            
+            border-radius: 1.25rem;
+
+            .key {
+                font-family: 'Nunito', sans-serif;
+                font-size: 0.75rem;
+            }
+
+            .value {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

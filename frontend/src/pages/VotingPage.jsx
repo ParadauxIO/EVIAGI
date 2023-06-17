@@ -52,15 +52,23 @@ export default function VotingPage() {
         <div className="voting-page">
             <Navbar/>
             <main>
-                <RankedChoiceSelector 
-                    className="selector"
-                    candidates={candidates} 
-                    choices={choices} 
-                    setChoices={setChoices} 
-                />
-                <div className="actions">
-                    <button onClick={vote}>Vote</button>
-                    <button onClick={spoil}>Spoil Vote</button>
+                <div className="voting-card">
+                    <h1>election name</h1>
+                    <p>election description</p>
+                    <RankedChoiceSelector 
+                        className="selector"
+                        candidates={candidates} 
+                        choices={choices} 
+                        setChoices={setChoices} 
+                    />
+                    <div className="actions">
+                        <button onClick={vote}>Vote</button>
+                        <button onClick={spoil}>Spoil Vote</button>
+                    </div>
+                    <p>
+                        Currently only Single Transferable Vote / Instant Runoff Vote is supported.<br/>
+                        Spoiling your vote nullifies any selections made.
+                    </p>
                 </div>
             </main>
             <Footer/>

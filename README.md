@@ -1,24 +1,22 @@
-# EVIAGI
+## EVIAGI: Electronic voting is a *great* idea 
 
-Electronic voting is a *great* idea 
+> This software is incomplete and in a *pre-alpha* state.
 
-Online voting orchestration system, entirely open source and open to audit. 
+An open-source election orchestration platform. You can use the software
+to create and run elections, and eventually polls. You can optionally make
+use of the Cloud version provided by [Clove Software](https://eviagi.clove.ie)
+and support contracts are made available upon request. [Email us](mailto:info@clove.ie) for more information.
 
-Licensed under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE.
+Source code is provided under AGPLv3 or a later version as published by the 
+Free Software Foundation at your discretion. 
 
-Installation instructions and documentation to follow later into the projects' development.
+## Installation
 
-# Client
+See the installation instructions in each component's README.md.
 
-A React frontend for users to vote and for votes/elections to be made. 
-Designed to be deployed on Cloudflare Pages
-
-
-# Server
-
-An express backend
-
-Designed to be deployed using a docker stack, such as docker-compose.
-
-
+1. [Frontend (React)](frontend/README.md)
+2. [Backend (Node/Express)](backend/README.md)
+3. **Integrations**
+    1. [Minecraft Plugin (Java)](integrations/minecraft/README.md)
+    2. [Discord Bot (Java)](integrations/discord-bot/README.md)
 
