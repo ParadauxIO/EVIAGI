@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+
+// TODO add the middlewere
+
 // /election
 router.get('/', (req, res, next) => {
   res.status(404);
@@ -9,8 +12,12 @@ router.get('/', (req, res, next) => {
   })
 });
 
-router.post('/', (req, res, next) => {
+router.post('/create', (req, res, next) => {
+    // Needs an auth token
+    
+    // Verify the body contains the necessary fields
 
+    // Put it to the db
 })
 
 
