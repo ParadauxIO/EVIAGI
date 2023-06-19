@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
-app.use('/election', electionRouter);
+app.use('/elections', electionRouter);
 app.use('/static', express.static('public'))
 
 module.exports = app;
