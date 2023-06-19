@@ -1,6 +1,12 @@
-import { createClient } from '@supabase/supabase-js'
+const { createClient } = require('@supabase/supabase-js')
+
+const options = {
+    auth: {
+        persistSession: false
+    }
+}
 
 // Create a single supabase client for interacting with your database
-const supabase = createClient('https://xyzcompany.supabase.co', 'public-anon-key')
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, options)
 
-module.exports = supabase;
+module.exports = {supabase};
