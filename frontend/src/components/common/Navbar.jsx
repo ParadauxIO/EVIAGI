@@ -13,7 +13,7 @@ export default function Navbar() {
             </div>
             <ul className="links">
                 <li>
-                    <Link to={"/account"}>Account</Link>
+                    <Link to={"/auth"}>Account</Link>
                 </li>
             </ul>
         </nav>

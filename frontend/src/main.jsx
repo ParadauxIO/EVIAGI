@@ -10,6 +10,7 @@ import "./styles/reset.scss";
 import "./styles/utilities.scss";
 import './styles/global.scss';
 import Index from './pages/Index';
+import Auth from './pages/Auth';
 import ErrorPage from './pages/ErrorPage';
 import VotingPage from './pages/VotingPage';
 import OrganiserIndex from './pages/organisers/OrganiserIndex';
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Index/>,
     errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/auth",
+    element: <Auth/>
   },
   {
     path: "/election/:electionId",
