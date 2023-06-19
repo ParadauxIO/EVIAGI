@@ -23,6 +23,8 @@ export default function OrganisersSidebar() {
             <ul className="links">
                 <SidebarLink current={location} to="/organisers" label="Home"/>
                 <SidebarLink current={location} to="/organisers/elections" label="Elections"/>
+                <SidebarLink current={location} to="/organisers/constituencies" label="Constituences"/>
+
                 <SidebarLink current={location} to="/" label="Polls"/>
             </ul>
         </aside>
