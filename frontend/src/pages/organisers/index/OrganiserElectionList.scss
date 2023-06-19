@@ -1,5 +1,26 @@
 .election-list {
+    .election-list-items {
+        margin: 0.5rem;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        max-width: 1400px;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+
     .election-new-button {
+        margin-top: 0.25rem;
+        margin-left: 0.25rem;
         text-decoration: none;
         display: inline-block;
         outline: 0;
@@ -20,6 +41,11 @@
     .election-new-button:hover {
         background: #f6f6f7;
         outline: 1px solid transparent;
+    }
+
+    .action {
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 
