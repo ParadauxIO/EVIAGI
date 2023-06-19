@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Auth as AuthComponent } from '@supabase/auth-ui-react'
+import { Navigate, useSearchParams } from "react-router-dom";
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { supabase } from '../state/supabase'
 import "./Auth.scss"
 
 export default function Auth() {
   const [session, setSession] = useState(null)
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -32,7 +35,7 @@ export default function Auth() {
               appearance={{ theme: ThemeSupa }}
               providers={['google']}
             /> : 
-            <div>You've already logged in.</div>
+            <Navigate to={searchParams.get("redirectTo") || "/organisers"}/>
         }
       </div>
     </div>
