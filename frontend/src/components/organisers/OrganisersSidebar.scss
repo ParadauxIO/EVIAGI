@@ -9,10 +9,12 @@ aside.sidebar.organisers-sidebar {
     ul {
         list-style-type: none;
         padding: 0;
+        padding-top: 1.5rem;
 
         li {
             // background-color: red;
             text-align: center;
+            font-weight: 700;
             padding-block: 1rem;
         }
 

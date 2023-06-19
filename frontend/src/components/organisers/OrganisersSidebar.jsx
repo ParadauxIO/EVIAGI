@@ -1,6 +1,18 @@
+import { useLocation, useNavigate } from "react-router-dom"
 import "./OrganisersSidebar.scss"
 
+function SidebarLink({current, to, label}) {
+    let navigate = useNavigate();
+    return (
+        <li className={current.pathname === to ? "active" : ""} onClick={() => navigate(to)}>
+            {label}
+        </li>
+    )
+}
+
 export default function OrganisersSidebar() {
+    const location = useLocation()
+
     return (
         <aside className="sidebar organisers-sidebar">
             <div className="heading">
@@ -9,8 +21,9 @@ export default function OrganisersSidebar() {
             </div>
 
             <ul className="links">
-                <li className="active">Test</li>
-                <li>Test 2</li>
+                <SidebarLink current={location} to="/organisers" label="Home"/>
+                <SidebarLink current={location} to="/organisers/elections" label="Elections"/>
+                <SidebarLink current={location} to="/" label="Polls"/>
             </ul>
         </aside>
     )
