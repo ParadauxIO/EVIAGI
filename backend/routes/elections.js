@@ -4,15 +4,17 @@ const { authenticateUserMiddleware } = require('../middlewere/supabase-user');
 const { supabase } = require('../utils/supabase')
 const router = express.Router();
 
-// TODO add the middlewere
+router.get('/', authenticateUserMiddleware, async (req, res, next) => {
+  let {data, error} = await supabase.from("eviagi_elections")
+    .select()
+    .eq("organiser_id", req.user.sub);
 
-// /election
-router.get('/', (req, res, next) => {
-  res.status(404);
-  res.json({
-    error: 1,
-    message: "invalid-path"
-  })
+  if (error) {
+   res.status(400);
+   res.json(error); 
+  }
+
+  res.json(data);
 });
 
 router.post('/create', authenticateUserMiddleware, async (req, res, next) => {
@@ -87,18 +89,34 @@ router.post('/create', authenticateUserMiddleware, async (req, res, next) => {
 })
 
 
-router.get('/:electionId', (req, res, next) => {
+router.get('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
   const { electionId } = req.params;
-  console.log(`getting election: ${electionId}`)
+  let {data, error} = await supabase.from("eviagi_elections")
+    .select()
+    .eq("organiser_id", req.user.sub)
+    .eq("election_id", electionId);
 
-  res.send("10");
-  // is valid UUID
+  if (error) {
+   res.status(400);
+   res.json(error); 
+  }
+
+  res.json(data);
 })
 
-router.delete('/:electionId', (req, res, next) => {
+router.delete('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
   const { electionId } = req.params;
-  console.log(`deleting election: ${electionId}`)
-  // is valid UUID
+  let {error} = await supabase.from("eviagi_elections")
+    .delete()
+    .eq("organiser_id", req.user.sub)
+    .eq("election_id", electionId);
+
+  if (error) {
+   res.status(400);
+   res.json(error); 
+  }
+
+  res.json({success: "Deleted election: " + electionId});
 })
 
 
