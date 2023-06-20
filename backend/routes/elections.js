@@ -18,19 +18,29 @@ router.get('/', authenticateUserMiddleware, async (req, res, next) => {
 });
 
 router.post('/create', authenticateUserMiddleware, async (req, res, next) => {
+  let form = req.body;
+  
+  if (!form) {
+    res.status(400);
+    res.json({error: "No body provided."})
+    return;
+  }
+
+  if (Object.keys(form).length < 9) {
+    res.status(400);
+    res.json({error: "Missing or invalid body fields."})
+    return;
+  }
+
   let error;
 
   if (req.user.aud !== "authenticated") {
     error = "Invalid user."
   }
 
-  let form = req.body;
+  // Convert from JSON timestamp to date object.
   form.opens = new Date(form.opens);
   form.closes = new Date(form.closes);
-
-  // Needs an auth token
-  console.log(req.user)
-
 
   // Verify the body contains the necessary fields
   if (form.name.length === 0) {
@@ -88,13 +98,28 @@ router.post('/create', authenticateUserMiddleware, async (req, res, next) => {
   // Put it to the db
 })
 
-
 router.get('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
   const { electionId } = req.params;
   let {data, error} = await supabase.from("eviagi_elections")
     .select()
     .eq("organiser_id", req.user.sub)
     .eq("election_id", electionId);
+
+  if (error) {
+   res.status(400);
+   res.json(error); 
+  }
+
+  res.json(data);
+})
+
+router.patch('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
+  const { electionId } = req.params;
+  let {data, error} = await supabase.from("eviagi_elections")
+    .update(req.body)
+    .eq("organiser_id", req.user.sub)
+    .eq("election_id", electionId)
+    .select();
 
   if (error) {
    res.status(400);
