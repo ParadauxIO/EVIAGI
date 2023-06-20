@@ -6,9 +6,15 @@ import { useEffect, useState } from "react";
 import RankedChoiceSelector from "../components/voting/RankedChoiceSelector";
 
 export default function VotingPage() {
-    let {electionId, electorId} = useParams();
+    let [election, setElection] = useState({
+        name: "election name",
+        description: "election description"
+    });
+
     let [candidates, setCandidates] = useState([]);
     let [choices, setChoices] = useState({});
+
+    let { electionId, electorId } = useParams();
 
     const vote = () => {
         // Validate inputs
@@ -17,7 +23,6 @@ export default function VotingPage() {
             return;
         }
 
-
         console.log("vote")
     }
 
@@ -25,27 +30,28 @@ export default function VotingPage() {
         // TODO
     }
 
-    useEffect(() => {
-        let newCandidates = [
-            {
-                name: "Candidate 1",
-            },
-            {
-                name: "Candidate 5"
-            },
-            {
-                name: "Candidate 3"
-            }
-        ]
-
-        setCandidates(newCandidates)
-
-        let newChoices = {};
-        for (let candidate of newCandidates) {
-            newChoices[candidate.name] = "";
+    async function fetchElectionData() {        
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_LINK}/public/election/${electionId}`);
+            setElection(await response.json());
+            console.log(election)
+        } catch (error) {
+            console.error('Error fetching election data:', error);
         }
-        setChoices(newChoices)
-        console.log(newChoices)
+    }
+
+    async function fetchCandidateData() {        
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_LINK}/public/election/${electionId}/candidates`);
+            setCandidates(await response.json());
+        } catch (error) {
+            console.error('Error fetching candidate data:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchElectionData();
+        fetchCandidateData();
     }, [])
 
     return (
@@ -53,8 +59,8 @@ export default function VotingPage() {
             <Navbar/>
             <main>
                 <div className="voting-card">
-                    <h1>election name</h1>
-                    <p>election description</p>
+                    <h1>{election.name}</h1>
+                    <p>{election.description}</p>
                     <RankedChoiceSelector 
                         className="selector"
                         candidates={candidates} 

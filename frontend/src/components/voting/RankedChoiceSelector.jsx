@@ -9,8 +9,8 @@ export default function RankedChoiceSelector({ className, candidates, choices, s
         value: index+1
     }))];
 
-    const updateChoices = (name) => {
-        return (value) => setChoices(oldChoices => ({ ...oldChoices, [name]: value }));
+    const updateChoices = (id) => {
+        return (value) => setChoices(oldChoices => ({ ...oldChoices, [id]: value }));
     }
 
     return (
@@ -19,10 +19,10 @@ export default function RankedChoiceSelector({ className, candidates, choices, s
                 candidates.map((candidate, index) => (
                     <Selector
                         key={index}
-                        label={candidate.name}
+                        label={candidate.candidate_name}
                         options={options}
-                        value={choices[candidate.name]}
-                        setValue={updateChoices(candidate.name)}
+                        value={choices[candidate.candidate_id]}
+                        setValue={updateChoices(candidate.candidate_id)}
                     />
                 ))
             }
