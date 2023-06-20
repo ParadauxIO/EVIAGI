@@ -7,6 +7,7 @@ router.get(`/election/:electionId`, async (req, res, next) => {
     const {data, error} = await supabase
                 .from("eviagi_elections")
                 .select("election_id, name, description")
+                .single()
                 .eq('election_id', electionId);
 
     if (error) {
