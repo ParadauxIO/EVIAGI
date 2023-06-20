@@ -33,10 +33,6 @@ const router = createBrowserRouter([
     element: <Auth/>
   },
   {
-    path: "/election/:electionId",
-    element: <ErrorPage/> // To be replaced with election manager
-  },
-  {
     path: "/election/:electionId/vote/electorate/:electorId",
     element: <VotingPage/>
   },
