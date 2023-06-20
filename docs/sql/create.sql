@@ -23,7 +23,7 @@ CREATE TABLE eviagi_elections (
     election_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organiser_id UUID REFERENCES eviagi_organisers(organiser_id),
     created_at TIMESTAMP NOT NULL DEFAULT now(),
-    opens TIMESTAMP NOT NULL DEFAULT now(),
+    opens TIMESTAMP,
     closes TIMESTAMP,
     voting_method TEXT NOT NULL,
     secret_ballot BOOL DEFAULT TRUE,
