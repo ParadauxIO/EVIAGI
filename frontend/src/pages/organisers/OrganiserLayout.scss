@@ -11,8 +11,19 @@
   
   /* Give every child element its grid name */
   .header {
+    width: 100%;
     grid-area: header;
     background-color: #F6F6F6;
+    padding: 1rem;
+    span.email {
+      font-weight: bold;
+    }
+
+    span.logout {
+      float: right;
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
   
   .sidenav {

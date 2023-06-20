@@ -20,6 +20,7 @@ import OrganiserAccountEditor from './pages/organisers/index/OrganiserAccountEdi
 import OrganiserElectionViewer from './pages/organisers/index/OrganiserElectionViewer';
 import OrganiserLayout from './pages/organisers/OrganiserLayout';
 import OrganiserElectionCreator from './pages/organisers/index/OrganiserElectionCreator';
+import OrganiserElectionCandidateEditor from './pages/organisers/index/OrganiserElectionCandidateEditor';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "election/:electionId/edit",
         element: <OrganiserElectionEditor/>
+      },
+      {
+        path: "election/:electionId/candidates",
+        element: <OrganiserElectionCandidateEditor/>
       },
       {
         path: "election/:electionId",
