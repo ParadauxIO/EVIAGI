@@ -103,7 +103,8 @@ router.get('/:electionId', authenticateUserMiddleware, async (req, res, next) =>
   let {data, error} = await supabase.from("eviagi_elections")
     .select()
     .eq("organiser_id", req.user.sub)
-    .eq("election_id", electionId);
+    .eq("election_id", electionId)
+    .single();
 
   if (error) {
    res.status(400);
@@ -119,7 +120,8 @@ router.patch('/:electionId', authenticateUserMiddleware, async (req, res, next) 
     .update(req.body)
     .eq("organiser_id", req.user.sub)
     .eq("election_id", electionId)
-    .select();
+    .select()
+    .single();
 
   if (error) {
    res.status(400);
