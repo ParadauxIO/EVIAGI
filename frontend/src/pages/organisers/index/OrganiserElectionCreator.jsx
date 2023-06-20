@@ -3,6 +3,7 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 
 import "./OrganiserElectionCreator.scss"
+import { supabase } from "../../../state/supabase";
 
 
 export default function OrganiserElectionCreator() {
@@ -14,7 +15,7 @@ export default function OrganiserElectionCreator() {
 
     const [form, setForm] = useState({
         name: "",
-        votingMethod: votingMethodOptions[0],
+        votingMethodSelection: votingMethodOptions[0],
         isSecretBallot: true,
         hasReopenNominations: false,
         usesConstituencies: false,
@@ -30,7 +31,7 @@ export default function OrganiserElectionCreator() {
         return obj instanceof Date && !isNaN(obj);
     }
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
 
         if (form.name.length === 0) {
@@ -63,16 +64,28 @@ export default function OrganiserElectionCreator() {
             return;
         }
 
-        form.votingMethod = form.votingMethod.value;
-
         setErrorMessage(null);
         // Send to API
-        
+        let body = {...form}
+        console.log(JSON.stringify(form));
+
+        const { data: { session } } = await supabase.auth.getSession()
+        body.votingMethod = form.votingMethodSelection.value;
+        delete body.votingMethodSelection;
+
+        console.log(JSON.stringify(body))
+        console.log(session.access_token)
+        const response = await fetch(`${import.meta.env.VITE_API_LINK}/elections/create`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${session.access_token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({...body})
+        });
 
         // navigate back to list, use window.location to fresh list.
-        // window.location.href = "/organisers/elections"
-        console.log(JSON.stringify(form));
-        setForm(prev => ({...prev, description: JSON.stringify(form)}))
+        window.location.href = "/organisers/elections"
     }
 
     function handleSelectChange(name) {
@@ -111,7 +124,6 @@ export default function OrganiserElectionCreator() {
                 [event.target.name]: event.target.value,
             }));
         }
-
     }
 
     return (
@@ -139,10 +151,10 @@ export default function OrganiserElectionCreator() {
                         <div className="form-item">
                             <label htmlFor="votingMethod">Voting Method</label>
                             <Select
-                                id="votingMethod"
-                                onChange={handleSelectChange("votingMethod")}
+                                id="votingMethodSelection"
+                                onChange={handleSelectChange("votingMethodSelection")}
                                 options={votingMethodOptions}
-                                value={form.votingMethod}
+                                value={form.votingMethodSelection}
                             />
                         </div>
 
@@ -185,7 +197,7 @@ export default function OrganiserElectionCreator() {
                             <Select
                                 isMulti
                                 id="constituencies"
-                                onChange={handleSelectChange("votingMethod")}
+                                onChange={handleSelectChange("constituencies")}
                                 options={constituencyOptions}
                                 value={form.constituencies}
                                 isDisabled={form.constituencies.length === 0}

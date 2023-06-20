@@ -74,7 +74,7 @@ export default function OrganiserElectionList() {
                             <td>
                                 {/* <span className="action" onClick={() => doAction(item.election_id, "open")}>Open</span> &middot;&nbsp;
                                 <span className="action" onClick={() => doAction(item.election_id, "close")}>Close</span> &middot;&nbsp; */}
-                                <span className="action" onClick={() => navigate(`/organisers/elections/${item.election_id}/edit`)}>View</span> &middot;&nbsp;
+                                <span className="action" onClick={() => navigate(`/organisers/election/${item.election_id}/edit`)}>Edit</span> &middot;&nbsp;
                                 <span className="action" onClick={() => doAction(item.election_id, "delete")}>Delete</span>
                             </td>
                         </tr>

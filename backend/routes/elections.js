@@ -126,6 +126,7 @@ router.patch('/:electionId', authenticateUserMiddleware, async (req, res, next) 
   if (error) {
    res.status(400);
    res.json(error); 
+   return;
   }
 
   res.json(data);
