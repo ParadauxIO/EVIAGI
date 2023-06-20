@@ -20,7 +20,7 @@ export default function OrganiserElectionCreator() {
         hasReopenNominations: false,
         usesConstituencies: false,
         constituencies: [],
-        opens: "",
+        opens: new Date(),
         closes: "",
         description: ""
     });
