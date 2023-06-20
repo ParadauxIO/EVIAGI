@@ -5,13 +5,13 @@ const { supabase } = require('../utils/supabase')
 const router = express.Router();
 
 router.get('/', authenticateUserMiddleware, async (req, res, next) => {
-  let {data, error} = await supabase.from("eviagi_elections")
+  let { data, error } = await supabase.from("eviagi_elections")
     .select()
     .eq("organiser_id", req.user.sub);
 
   if (error) {
-   res.status(400);
-   res.json(error); 
+    res.status(400);
+    res.json(error);
   }
 
   res.json(data);
@@ -19,16 +19,16 @@ router.get('/', authenticateUserMiddleware, async (req, res, next) => {
 
 router.post('/create', authenticateUserMiddleware, async (req, res, next) => {
   let form = req.body;
-  
+
   if (!form) {
     res.status(400);
-    res.json({error: "No body provided."})
+    res.json({ error: "No body provided." })
     return;
   }
 
   if (Object.keys(form).length < 9) {
     res.status(400);
-    res.json({error: "Missing or invalid body fields."})
+    res.json({ error: "Missing or invalid body fields." })
     return;
   }
 
@@ -100,15 +100,15 @@ router.post('/create', authenticateUserMiddleware, async (req, res, next) => {
 
 router.get('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
   const { electionId } = req.params;
-  let {data, error} = await supabase.from("eviagi_elections")
+  let { data, error } = await supabase.from("eviagi_elections")
     .select()
     .eq("organiser_id", req.user.sub)
     .eq("election_id", electionId)
     .single();
 
   if (error) {
-   res.status(400);
-   res.json(error); 
+    res.status(400);
+    res.json(error);
   }
 
   res.json(data);
@@ -116,7 +116,7 @@ router.get('/:electionId', authenticateUserMiddleware, async (req, res, next) =>
 
 router.patch('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
   const { electionId } = req.params;
-  let {data, error} = await supabase.from("eviagi_elections")
+  let { data, error } = await supabase.from("eviagi_elections")
     .update(req.body)
     .eq("organiser_id", req.user.sub)
     .eq("election_id", electionId)
@@ -124,9 +124,9 @@ router.patch('/:electionId', authenticateUserMiddleware, async (req, res, next) 
     .single();
 
   if (error) {
-   res.status(400);
-   res.json(error); 
-   return;
+    res.status(400);
+    res.json(error);
+    return;
   }
 
   res.json(data);
@@ -134,18 +134,81 @@ router.patch('/:electionId', authenticateUserMiddleware, async (req, res, next) 
 
 router.delete('/:electionId', authenticateUserMiddleware, async (req, res, next) => {
   const { electionId } = req.params;
-  let {error} = await supabase.from("eviagi_elections")
+  let { error } = await supabase.from("eviagi_elections")
     .delete()
     .eq("organiser_id", req.user.sub)
     .eq("election_id", electionId);
 
   if (error) {
-   res.status(400);
-   res.json(error); 
+    res.status(400);
+    res.json(error);
   }
 
-  res.json({success: "Deleted election: " + electionId});
+  res.json({ success: "Deleted election: " + electionId });
 })
 
+router.get('/:electionId/candidates', authenticateUserMiddleware, async (req, res, next) => {
+  const { electionId } = req.params;
+  let { data, error } = await supabase.from("eviagi_candidates")
+    .select()
+    .eq("election_id", electionId);
+
+  if (error) {
+    res.status(400);
+    res.json(error);
+  }
+
+  res.json(data);
+})
+
+router.post('/:electionId/candidates', authenticateUserMiddleware, async (req, res, next) => {
+  const { electionId } = req.params;
+  let form = req.body;
+
+  if (!form) {
+    res.status(400);
+    res.json({ error: "No body provided." })
+    return;
+  }
+
+  if (Object.keys(form).length == 0) {
+    res.status(400);
+    res.json({ error: "Missing or invalid body fields." })
+    return;
+  }
+
+  if (!form.candidate_name || form.candidate_name.length == 0) {
+    res.status(400);
+    res.json({ error: "Invalid name" })
+  }
+
+  let { data, error } = await supabase.from("eviagi_candidates")
+    .insert({
+      ...form,
+      election_id: electionId
+    });
+
+  if (error) {
+    res.status(400);
+    res.json(error);
+  }
+
+  res.json(data);
+})
+
+router.delete('/:electionId/candidate/:candidateId', authenticateUserMiddleware, async (req, res, next) => {
+  const { electionId, candidateId } = req.params;
+  let { error } = await supabase.from("eviagi_candidates")
+    .delete()
+    .eq("election_id", electionId)
+    .eq("candidate_id", candidateId);
+
+  if (error) {
+    res.status(400);
+    res.json(error);
+  }
+
+  res.json({ success: `Deleted candidate: ${candidateId} in election: ${electionId}`});
+})
 
 module.exports = router;

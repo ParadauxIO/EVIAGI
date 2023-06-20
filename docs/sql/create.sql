@@ -45,8 +45,16 @@ CREATE TABLE eviagi_ballots (
     choices JSONB -- If it's null the vote has been spoiled.
 );
 
+-- Represents a candidate standing for election.
+-- It's possible that two candidates could have the same name
+-- in this case affiliation should be used to discern them.
+-- Otherwise, affiliation should be used (if applicable)
+-- to represent organisation affiliation (e.g., Political Party)
 CREATE TABLE eviagi_candidates (
-    elector_id UUID PRIMARY KEY REFERENCES eviagi_electorate(elector_id)
+    candidate_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    election_id UUID NOT NULL REFERENCES eviagi_elections(election_id),
+    candidate_name TEXT NOT NULL,
+    candidate_affiliation TEXT
 );
 
 -- The prescence of a record here for a given elector indicates they
